@@ -96,7 +96,7 @@ export default function ArenaPage() {
   const { voteMeme, isConnected, address } = useZoraCoins();
   const [memes, setMemes] = useState<MemeCoin[]>(mockMemesInArena);
   const [filter, setFilter] = useState('trending'); // trending, newest, stage
-  const [selectedMeme, setSelectedMeme] = useState<any>(null);
+  const [selectedMeme, setSelectedMeme] = useState<MemeCoin | null>(null);
   const [userMemeEntries, setUserMemeEntries] = useState(myMemeEntries);
   const [hasVoted, setHasVoted] = useState<Record<number, boolean>>({});
   const [loading, setLoading] = useState<Record<number, boolean>>({});
@@ -226,7 +226,7 @@ export default function ArenaPage() {
   const handleSort = (sortType: string) => {
     setFilter(sortType);
     
-    let sortedMemes = [...memes];
+    const sortedMemes = [...memes];
     
     if (sortType === 'trending') {
       sortedMemes.sort((a, b) => b.votes - a.votes);
@@ -240,7 +240,7 @@ export default function ArenaPage() {
     setMemes(sortedMemes);
   };
 
-  const handleMemeSelect = (meme: any) => {
+  const handleMemeSelect = (meme: MemeCoin) => {
     setSelectedMeme(meme);
   };
 
