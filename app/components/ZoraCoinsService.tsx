@@ -2,17 +2,19 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAccount, useWalletClient, usePublicClient } from 'wagmi';
-import { Address, getAddress } from 'viem';
+import { Address, getAddress, WalletClient } from 'viem';
 
 // Since we're in a demo environment and don't have an actual deployed factory contract,
 // we'll use this approach to simulate minting while generating valid transaction hashes
-const simulateContractInteraction = async (walletClient: any, address: string) => {
+const simulateContractInteraction = async (walletClient: WalletClient, address: string) => {
   // Send a transaction to the user's own address (a self-transfer of 0 ETH)
   // This will generate a real transaction hash but won't actually deploy a contract
   const hash = await walletClient.sendTransaction({
-    to: address,
+    account: walletClient.account!,
+    to: address as `0x${string}`,
     value: BigInt(0),
-    data: '0x' // Empty data
+    data: '0x', // Empty data
+    chain: null
   });
   
   return hash;

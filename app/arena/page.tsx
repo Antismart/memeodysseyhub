@@ -331,7 +331,7 @@ export default function ArenaPage() {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <p className="text-gray-300 mb-4">You haven't submitted any memes to the Viral Arena yet.</p>
+                    <p className="text-gray-300 mb-4">You haven&apos;t submitted any memes to the Viral Arena yet.</p>
                     <Link href="/odyssey" className="px-6 py-2 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full hover:opacity-90 transition-opacity inline-block">
                       Submit Your Meme
                     </Link>

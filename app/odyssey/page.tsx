@@ -78,6 +78,8 @@ interface Meme {
 }
 
 // Default mock meme to use if no memes are found
+// Commenting out unused variable to pass ESLint
+/* 
 const mockUserMeme: Meme = {
   id: 1,
   name: 'Distracted Boyfriend',
@@ -89,6 +91,7 @@ const mockUserMeme: Meme = {
   ],
   contractAddress: '0x1234567890123456789012345678901234567890'
 };
+*/
 
 export default function OdysseyPage() {
   const { evolveMeme, isConnected, address } = useZoraCoins();
@@ -96,6 +99,9 @@ export default function OdysseyPage() {
   const [selectedMeme, setSelectedMeme] = useState<Meme | null>(null);
   const [activeStage, setActiveStage] = useState<number | null>(null);
   const [isEvolvingMeme, setIsEvolvingMeme] = useState(false);
+  
+  // These variables are used in handleConfirmEvolution but not elsewhere
+  // Adding a conditional to use them or commenting them out to pass ESLint
   const [evolvedImagePreview, setEvolvedImagePreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [transactionHash, setTransactionHash] = useState<string | null>(null);
@@ -240,7 +246,7 @@ export default function OdysseyPage() {
         ) : userMemes.length === 0 ? (
           <div className="text-center py-16 bg-purple-800/30 rounded-xl backdrop-blur-sm">
             <h2 className="text-xl font-medium mb-4">No Meme Coins Found</h2>
-            <p className="text-gray-300 mb-6">You haven't created any meme coins yet. Start your journey by minting your first Seed Meme Coin.</p>
+            <p className="text-gray-300 mb-6">You haven&apos;t created any meme coins yet. Start your journey by minting your first Seed Meme Coin.</p>
             <Link href="/create" className="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full hover:opacity-90 transition-opacity inline-block">
               Create Seed Meme Coin
             </Link>

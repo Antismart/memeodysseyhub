@@ -1,6 +1,7 @@
 'use client';
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Image from 'next/image';
 
 interface ConnectWalletProps {
   className?: string;
@@ -63,10 +64,11 @@ export default function ConnectWallet({ className = '' }: ConnectWalletProps) {
                     {chain.hasIcon && (
                       <div className="w-4 h-4 overflow-hidden rounded-full border border-gray-400/30">
                         {chain.iconUrl && (
-                          <img
+                          <Image
                             alt={chain.name ?? 'Chain icon'}
                             src={chain.iconUrl}
-                            style={{ width: 16, height: 16 }}
+                            width={16}
+                            height={16}
                           />
                         )}
                       </div>
