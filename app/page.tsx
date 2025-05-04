@@ -158,7 +158,7 @@ export default function Home() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Mint Seed Memes</h3>
             <p className="text-gray-300">
-              Create your own "Seed Meme" coin on the Base blockchain. Add your meme's origin story and make it unique.
+              Create your own &quot;Seed Meme&quot; coin on the Base blockchain. Add your meme&apos;s origin story and make it unique.
             </p>
             <Link href="/create" className="block mt-4 text-pink-400 hover:text-pink-300 font-medium">
               Start Creating &rarr;
@@ -173,7 +173,7 @@ export default function Home() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Journey Through Odyssey Map</h3>
             <p className="text-gray-300">
-              Evolve your meme through themed stages like "Viral Volcano" and "TikTok Tundra" while earning rewards.
+              Evolve your meme through themed stages like &quot;Viral Volcano&quot; and &quot;TikTok Tundra&quot; while earning rewards.
             </p>
             <Link href="/odyssey" className="block mt-4 text-cyan-400 hover:text-cyan-300 font-medium">
               Start Journey &rarr;
