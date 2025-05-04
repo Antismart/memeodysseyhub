@@ -2,56 +2,16 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useAccount, useWalletClient, usePublicClient } from 'wagmi';
-import { Address, encodeAbiParameters, parseAbiParameters, getAddress } from 'viem';
-import { baseSepolia } from 'viem/chains';
-
-// ABI for the ContentCoinFactory
-const factoryAbi = [
-  {
-    "inputs": [
-      { "name": "name", "type": "string" },
-      { "name": "symbol", "type": "string" },
-      { "name": "description", "type": "string" },
-      { "name": "imageURI", "type": "string" },
-      { "name": "originStory", "type": "string" },
-      { "name": "tags", "type": "string[]" }
-    ],
-    "name": "createContentCoin",
-    "outputs": [{ "name": "newCoin", "type": "address" }],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-];
-
-// ABI for the ContentCoin (simplified)
-const contentCoinAbi = [
-  {
-    "inputs": [
-      { "name": "stage", "type": "uint256" },
-      { "name": "variant", "type": "string" }
-    ],
-    "name": "evolve",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "vote",
-    "outputs": [{ "name": "pointsAdded", "type": "uint256" }],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-];
+import { Address, getAddress } from 'viem';
 
 // Since we're in a demo environment and don't have an actual deployed factory contract,
 // we'll use this approach to simulate minting while generating valid transaction hashes
-const simulateContractInteraction = async (walletClient, address) => {
+const simulateContractInteraction = async (walletClient: any, address: string) => {
   // Send a transaction to the user's own address (a self-transfer of 0 ETH)
   // This will generate a real transaction hash but won't actually deploy a contract
   const hash = await walletClient.sendTransaction({
     to: address,
-    value: 0n,
+    value: BigInt(0),
     data: '0x' // Empty data
   });
   
@@ -136,6 +96,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
       console.log('Transaction submitted:', hash);
       
       // Wait for the transaction to be mined
+      if (!publicClient) {
+        throw new Error("Public client not available");
+      }
       const receipt = await publicClient.waitForTransactionReceipt({ hash });
       console.log('Transaction receipt:', receipt);
       
@@ -152,9 +115,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
           transactionHash: hash
         }
       };
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error minting content coin:', err);
-      setError(err.message || "Failed to mint content coin");
+      setError(err instanceof Error ? err.message : "Failed to mint content coin");
       throw err;
     } finally {
       setLoading(false);
@@ -180,6 +143,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
       console.log('Transaction submitted:', hash);
       
       // Wait for the transaction to be mined
+      if (!publicClient) {
+        throw new Error("Public client not available");
+      }
       const receipt = await publicClient.waitForTransactionReceipt({ hash });
       console.log('Transaction receipt:', receipt);
       
@@ -194,9 +160,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
         },
         evolutionDate
       };
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error evolving meme:', err);
-      setError(err.message || "Failed to evolve meme");
+      setError(err instanceof Error ? err.message : "Failed to evolve meme");
       throw err;
     } finally {
       setLoading(false);
@@ -222,6 +188,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
       console.log('Transaction submitted:', hash);
       
       // Wait for the transaction to be mined
+      if (!publicClient) {
+        throw new Error("Public client not available");
+      }
       const receipt = await publicClient.waitForTransactionReceipt({ hash });
       console.log('Transaction receipt:', receipt);
       
@@ -236,9 +205,9 @@ export function ZoraCoinsProvider({ children }: { children: ReactNode }) {
         },
         pointsAdded
       };
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error voting for meme:', err);
-      setError(err.message || "Failed to vote for meme");
+      setError(err instanceof Error ? err.message : "Failed to vote for meme");
       throw err;
     } finally {
       setLoading(false);

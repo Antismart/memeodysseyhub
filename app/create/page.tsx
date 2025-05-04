@@ -108,7 +108,7 @@ export default function CreatePage() {
         imageURI,
         originStory,
         tags: tags.split(',').map(tag => tag.trim()),
-        supply,
+        // supply parameter is not accepted in ContentCoinParams type
       });
 
       console.log('Mint result:', result);
